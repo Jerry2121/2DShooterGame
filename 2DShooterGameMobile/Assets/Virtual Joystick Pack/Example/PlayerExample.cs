@@ -7,6 +7,7 @@ public class PlayerExample : MonoBehaviour {
     public Joystick joystick2;
     public Vector3 joyStartPos;
     public GameObject handle;
+    public GameObject player;
     private void Start()
     {
         joyStartPos = handle.transform.position;
@@ -34,7 +35,7 @@ public class PlayerExample : MonoBehaviour {
         if (foo.magnitude == 1)
         {
             transform.forward = foo;
-            transform.Rotate(new Vector3(0, 90, 90));
+            player.transform.Rotate(new Vector3(0, 90, 90));
             //transform.rotation = Quaternion.Euler(rotateVector);
 
 
