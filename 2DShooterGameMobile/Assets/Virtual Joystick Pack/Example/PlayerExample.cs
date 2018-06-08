@@ -12,13 +12,18 @@ public class PlayerExample : MonoBehaviour {
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public float timer;
-    public float Speed = 6;
+    public float Speed = 2;
     private void Start()
     {
         joyStartPos = handle.transform.position;
     }
     void Update () 
 	{
+
+        if (PlayerPrefs.GetInt("EnemiesLeft") <= 0)
+        {
+            SceneManager.LoadScene("Win");
+        }
         timer += Time.deltaTime;
         Vector3 moveVector = new Vector2(joystick.Horizontal, joystick.Vertical).normalized;//(transform.right * joystick.Horizontal + transform.up * joystick.Vertical).normalized;
         gameObject.GetComponent<Rigidbody2D>().velocity = moveVector*moveSpeed *Time.deltaTime;//transform.Translate(moveVector * moveSpeed * Time.deltaTime);
@@ -44,10 +49,6 @@ public class PlayerExample : MonoBehaviour {
             transform.forward = foo;
             player.transform.Rotate(new Vector3(0, 90, 90));
             //transform.rotation = Quaternion.Euler(rotateVector);
-        }
-        if (PlayerPrefs.GetInt("Health") <= 0)
-        {
-            SceneManager.LoadScene("Loose");
         }
     }
     void Fire()
