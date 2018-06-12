@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 public class Healthbarscript : MonoBehaviour {
     public Slider Healthbar;
     public GameObject Lives;
+    public GameObject Coins;
 
 	// Use this for initialization
 	void Start () {
+        Coins.GetComponent<Text>().text = "Coins: " + PlayerPrefs.GetInt("Coins");
         Lives.GetComponent<Text>().text = "Lives: " + PlayerPrefs.GetInt("Lives");
         Healthbar.value = PlayerPrefs.GetInt("Health");
 	}
@@ -17,10 +19,11 @@ public class Healthbarscript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Healthbar.value = PlayerPrefs.GetInt("Health");
+        Coins.GetComponent<Text>().text = "Coins: " + PlayerPrefs.GetInt("Coins");
         if (PlayerPrefs.GetInt("Health") <= 0)
         {
             PlayerPrefs.SetInt("Health", 10);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            SceneManager.LoadScene("transition");
             PlayerPrefs.SetInt("Lives", PlayerPrefs.GetInt("Lives") - 1);
             Lives.GetComponent<Text>().text = "Lives: " + PlayerPrefs.GetInt("Lives");
         }

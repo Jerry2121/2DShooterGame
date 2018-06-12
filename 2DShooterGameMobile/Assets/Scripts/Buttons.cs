@@ -18,7 +18,10 @@ public class Buttons : MonoBehaviour {
     {
         PlayerPrefs.SetInt("Lives", 3);
         PlayerPrefs.SetInt("Health", 10);
-        SceneManager.LoadScene("lvl1");
+        PlayerPrefs.SetInt("Coins", 0);
+        PlayerPrefs.SetInt("lvlnum", 1);
+        PlayerPrefs.SetInt("lvl1c", 0);
+        SceneManager.LoadScene("transition");
     }
     public void Quit()
     {
@@ -31,7 +34,10 @@ public class Buttons : MonoBehaviour {
     }
     public void restartlevel()
     {
+        PlayerPrefs.SetInt("Health", 10);
+        PlayerPrefs.SetInt("Coins", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
     public void Resume()
     {

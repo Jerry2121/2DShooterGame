@@ -19,10 +19,20 @@ public class PlayerExample : MonoBehaviour {
     }
     void Update () 
 	{
-
         if (PlayerPrefs.GetInt("EnemiesLeft") <= 0)
         {
-            SceneManager.LoadScene("Win");
+            PlayerPrefs.SetInt("EnemiesLeft", 1);
+            if (PlayerPrefs.GetInt("lvlnum") == 1)
+            {
+                PlayerPrefs.SetInt("EnemiesLeft", 1);
+                PlayerPrefs.SetInt("lvlnum", 2);
+            }
+            if (PlayerPrefs.GetInt("lvlnum") == 2 && PlayerPrefs.GetInt("lvl1c") == 1)
+            {
+                PlayerPrefs.SetInt("EnemiesLeft", 1);
+                PlayerPrefs.SetInt("lvlnum", 3);
+            }
+            SceneManager.LoadScene("transition");
         }
         timer += Time.deltaTime;
         Vector3 moveVector = new Vector2(joystick.Horizontal, joystick.Vertical).normalized;//(transform.right * joystick.Horizontal + transform.up * joystick.Vertical).normalized;
@@ -75,6 +85,24 @@ public class PlayerExample : MonoBehaviour {
         if (collision.gameObject.tag == "Enemy")
         {
             PlayerPrefs.SetInt("Health", PlayerPrefs.GetInt("Health") - 2);
+        }
+        if (collision.gameObject.layer == 11)
+        {
+            PlayerPrefs.SetInt("Health", PlayerPrefs.GetInt("Health") - 1);
+            Destroy(collision.gameObject);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins") + 1);
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "Heart")
+        {
+            PlayerPrefs.SetInt("Health", PlayerPrefs.GetInt("Health") + 2);
+            Destroy(collision.gameObject);
         }
     }
 }
