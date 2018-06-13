@@ -32,6 +32,11 @@ public class PlayerExample : MonoBehaviour {
                 PlayerPrefs.SetInt("EnemiesLeft", 1);
                 PlayerPrefs.SetInt("lvlnum", 3);
             }
+            if (PlayerPrefs.GetInt("lvlnum") == 3 && PlayerPrefs.GetInt("lvl2c") == 1 && PlayerPrefs.GetInt("lvl1c") == 1)
+            {
+                PlayerPrefs.SetInt("EnemiesLeft", 1);
+                PlayerPrefs.SetInt("lvlnum", 4);
+            }
             SceneManager.LoadScene("transition");
         }
         timer += Time.deltaTime;

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Buttons : MonoBehaviour {
     public GameObject PauseCanvas;
+    public GameObject WarningCanvas;
+    public GameObject PauseButtons;
 	// Use this for initialization
 	void Start () {
 		
@@ -21,6 +23,7 @@ public class Buttons : MonoBehaviour {
         PlayerPrefs.SetInt("Coins", 0);
         PlayerPrefs.SetInt("lvlnum", 1);
         PlayerPrefs.SetInt("lvl1c", 0);
+        PlayerPrefs.SetInt("lvl2c", 0);
         SceneManager.LoadScene("transition");
     }
     public void Quit()
@@ -34,10 +37,9 @@ public class Buttons : MonoBehaviour {
     }
     public void restartlevel()
     {
-        PlayerPrefs.SetInt("Health", 10);
-        PlayerPrefs.SetInt("Coins", 0);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1;
+        WarningCanvas.GetComponent<Canvas>().enabled = true;
+        PauseButtons.gameObject.SetActive(false);
+
     }
     public void Resume()
     {
@@ -48,5 +50,17 @@ public class Buttons : MonoBehaviour {
     {
         PauseCanvas.GetComponent<Canvas>().enabled = true;
         Time.timeScale = 0;
+    }
+    public void Yes()
+    {
+        PlayerPrefs.SetInt("Health", 10);
+        PlayerPrefs.SetInt("Coins", 0);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+    }
+    public void No()
+    {
+        WarningCanvas.GetComponent<Canvas>().enabled = false;
+        PauseButtons.gameObject.SetActive(true);
     }
 }
